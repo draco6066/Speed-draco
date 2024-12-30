@@ -1,0 +1,84 @@
+-- GUI Variables
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local SpeedBox = Instance.new("TextBox")
+local ExecuteButton = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+
+-- Parent GUI to player
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- ScreenGui properties
+ScreenGui.ResetOnSpawn = false
+
+-- Frame properties
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+Frame.Size = UDim2.new(0, 300, 0, 200)
+Frame.Active = true
+Frame.Draggable = true
+
+-- Title properties
+Title.Parent = Frame
+Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Title.BorderSizePixel = 0
+Title.Size = UDim2.new(0, 300, 0, 50)
+Title.Font = Enum.Font.SourceSansBold
+Title.Text = "DRACO"
+Title.TextColor3 = Color3.fromRGB(0, 0, 255)
+Title.TextSize = 30
+
+-- SpeedBox properties
+SpeedBox.Parent = Frame
+SpeedBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+SpeedBox.BorderColor3 = Color3.fromRGB(255, 255, 255)
+SpeedBox.Position = UDim2.new(0.2, 0, 0.4, 0)
+SpeedBox.Size = UDim2.new(0.6, 0, 0.2, 0)
+SpeedBox.Font = Enum.Font.SourceSans
+SpeedBox.PlaceholderText = "Enter Speed"
+SpeedBox.Text = ""
+SpeedBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpeedBox.TextSize = 20
+
+-- ExecuteButton properties
+ExecuteButton.Parent = Frame
+ExecuteButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ExecuteButton.BorderColor3 = Color3.fromRGB(255, 255, 255)
+ExecuteButton.Position = UDim2.new(0.3, 0, 0.7, 0)
+ExecuteButton.Size = UDim2.new(0.4, 0, 0.15, 0)
+ExecuteButton.Font = Enum.Font.SourceSansBold
+ExecuteButton.Text = "Execute"
+ExecuteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ExecuteButton.TextSize = 20
+
+-- CloseButton properties
+CloseButton.Parent = Frame
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+CloseButton.BorderSizePixel = 0
+CloseButton.Position = UDim2.new(0.9, -20, 0, 5)
+CloseButton.Size = UDim2.new(0, 20, 0, 20)
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextSize = 14
+
+-- Functionality for ExecuteButton
+ExecuteButton.MouseButton1Click:Connect(function()
+    local speed = tonumber(SpeedBox.Text)
+    if speed then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.WalkSpeed = speed
+    else
+        warn("Please enter a valid number for speed.")
+    end
+end)
+
+-- Functionality for CloseButton
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
